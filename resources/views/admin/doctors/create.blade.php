@@ -44,6 +44,7 @@
                     <div class="form-group">
                         <label for="major_id">Major</label>
                         <select name="major_id" class="form-control" required>
+                            <option value="">No Major</option>
                             @foreach ($majors as $major)
                                 <option value="{{ $major->id }}">{{ $major->title }}</option>
                             @endforeach

@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FrontMajorController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\DoctorController;
-use App\Http\Controllers\FrontMajorController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\FrontDoctorController;
 

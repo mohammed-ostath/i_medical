@@ -19,45 +19,63 @@ class DoctorController extends Controller
 
     public function create()
     {
-        $majors = Major::all();
         $doctors = Doctor::all();
-        return view('admin.doctors.create', compact('majors', 'doctors'));
+        $majors = Major::all();
+        return view('admin.doctors.create', compact('doctors', 'majors'));
     }
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|max:100',
+                'title' => 'nullable|exists:doctors,id',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'major_id' => 'required|exists:majors,id',
+            ]);
+            $imagePath = 'doctors_images/' . time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('doctors_images'), $imagePath);
+            $doctors = Doctor::create([
+                'name' => $validatedData['name'],
+                'title' => $validatedData['title'],
+                'image' => $imagePath,
+                'major_id' => $validatedData['major_id'],
+            ]);
+            // Rest of the code...
+        } catch (\Exception $e) {
+            return redirect()->route('doctors.index')->withInput()->with('error', 'An error occurred during doctor creation.');
+        }
+
+        // dd($request->all());
 
         // Validate the incoming request data
-        $validatedData = $request->validate([
-            'name' => 'required|max:100',
-            'title' => 'nullable|exists:doctors,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:4048',
-            'major_id' => 'required|exists:majors,id',
-        ]);
+        // $validatedData = $request->validate([
+        //     'name' => 'required|max:100',
+        //     'title' => 'nullable|exists:doctors,id',
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:4048',
+        //     'major_id' => 'required|exists:majors,id',
+        // ]);
 
-        $imagePath = 'doctors_images/' . time() . '_' . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('doctors_images'), $imagePath);
-        dd($request->all());
+        // $imagePath = 'doctors_images/' . time() . '_' . $request->file('image')->getClientOriginalName();
+        // $request->file('image')->move(public_path('doctors_images'), $imagePath);
 
-        $doctors = Doctor::create([
-            'name' => $validatedData['name'],
-            'title' => $validatedData['title'],
-            'image' => $imagePath,
-            'major_id' => $validatedData['major_id'],
+        // $doctors = Doctor::create([
+        //     'name' => $validatedData['name'],
+        //     'title' => $validatedData['title'],
+        //     'image' => $imagePath,
+        //     'major_id' => $validatedData['major_id'],
 
-        ]);
-
-
-        return redirect()->route('doctors.index')->with('success', 'Doctor Created successfully.');
+        // ]);
+        // return redirect()->route('doctors.index')->with('success', 'Doctor Created successfully.');
     }
 
 
     public function edit($id)
     {
-        $doctors = Doctor::find($id);
+        $doctor = Doctor::find($id);
         $majors = Major::all();
-        return view('admin.doctors.edit', compact('doctors', 'majors'));
+        return view('admin.doctors.edit', compact('doctor', 'majors'));
     }
 
     public function update(Request $request, Doctor $doctor)
@@ -92,5 +110,4 @@ class DoctorController extends Controller
         $doctor->delete();
         return redirect()->route('doctors.index')->with('success', 'Doctor deleted successfully');
     }
-
 }

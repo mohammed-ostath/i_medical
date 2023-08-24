@@ -39,9 +39,9 @@
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('front.index') }}">Home</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
-                            href="{{ route('majors.index') }}">majors</a>
+                            href="{{ route('front.majors.index') }}">majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
-                            href="{{ route('doctors.index') }}">Doctors</a>
+                            href="{{ route('front.doctors.index') }}">Doctors</a>
                         <a type="button" class="btn btn-outline-light navigation--button" href="./login.html">login</a>
                     </div>
                 </div>

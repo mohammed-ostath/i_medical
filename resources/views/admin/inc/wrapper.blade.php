@@ -154,7 +154,7 @@
         <a href="index3.html" class="brand-link">
             <img src="{{ asset('adminassets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Dashboard</span>
         </a>
 
         <!-- Sidebar -->
@@ -189,6 +189,7 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
+                    {{-- majors --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>
@@ -199,18 +200,41 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('majors.create')}}" class="nav-link">
+                                <a href="{{ route('majors.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add Major</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('majors.index')}}" class="nav-link">
+                                <a href="{{ route('majors.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>All Major</p>
                                 </a>
                             </li>
-
+                        </ul>
+                    </li>
+                    {{-- doctors --}}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>
+                                Doctors
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('doctors.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add Doctor</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('doctors.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>All Doctor</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

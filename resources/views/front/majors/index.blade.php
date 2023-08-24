@@ -119,8 +119,8 @@
             <div class="col-sm order-sm-2">
                 <h1 class="h1">Links</h1>
                 <div class="links d-flex gap-2 flex-wrap">
-                    <a href="./index.html" class="link text-white">Home</a>
-                    <a href="{{ route('majors.index') }}" class="link text-white">Majors</a>
+                    <a href="{{route('front.index')}}" class="link text-white">Home</a>
+                    <a href="{{ route('front.majors.index') }}" class="link text-white">Majors</a>
                     <a href="./doctors/index.html" class="link text-white">Doctors</a>
                     <a href="./login.html" class="link text-white">Login</a>
                     <a href="./register.html" class="link text-white">Register</a>

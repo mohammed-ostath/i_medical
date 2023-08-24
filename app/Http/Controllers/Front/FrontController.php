@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Models\Major;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FrontController extends Controller
 {
     public function index(){
-        return view('front.index');
+        $majors = Major::all();
+        return view('front.index',compact('majors'));
     }
 }

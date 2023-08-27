@@ -34,9 +34,9 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $doctor->name }}</td>
                         <td>{{ $doctor->title }}</td>
-                        <td>{{ $doctor->major->title }}</td>
+                        <td>{{ $doctor->major_id ?? 'No Major' }}</td>
                         <td>
-                            <img src="{{ asset('path_to_images/' . $doctor->image) }}" alt="{{ $doctor->name }}"
+                            <img src="{{ asset($doctor->image) }}" alt="{{ $doctor->name }}"
                                 width="100">
                         </td>
                         <td>

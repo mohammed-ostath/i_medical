@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Major;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $majors = Major::all();
+        $doctors = Doctor::all();
+        return view('front.index', compact('majors', 'doctors'));
     }
 }

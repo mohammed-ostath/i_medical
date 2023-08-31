@@ -1,21 +1,30 @@
 <?php
 
 // use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\FrontMajorController;
+use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\FrontDoctorController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\LoginController as AdminLoginController;
 
 
 // Dashboard Routes
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware(['auth', 'isAdmin']);
+// admin login
+Route::get('/admin/login', [LoginController::class, 'loginPage'])->name('admin.loginPage')->middleware('guest');
+Route::post('/admin/login', [LoginController::class, 'login'])->name('admin.login')->middleware('guest');
+
+Route::get('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout')->middleware('auth');
+
+// Admin Major Routes
 Route::get('/admin/majors', [MajorController::class, 'index'])->name('majors.index');
 Route::get('/admin/majors/create', [MajorController::class, 'create'])->name('majors.create');
 Route::post('/admin/majors/store', [MajorController::class, 'store'])->name('majors.store');
@@ -31,21 +40,21 @@ Route::get('/admin/doctors/edit/{doctor}', [DoctorController::class, 'edit'])->n
 Route::put('/admin/doctors/{doctor}', [DoctorController::class, 'update'])->name('doctors.update');
 Route::delete('/admin/doctors/{doctor}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
 
-
-
 // Front Routes
 Route::get('/VCare', [FrontController::class, 'index'])->name('front.index');
+Route::get('/', [FrontController::class, 'index'])->name('front2.index');
 // Major Routes
 Route::get('/majors', [FrontMajorController::class, 'index'])->name('front.majors.index');
 // Doctor Routes
 Route::get('/doctors', [FrontDoctorController::class, 'index'])->name('front.doctors.index');
 
 Auth::routes();
-// login
-Route::get('/VCare/login', [LoginController::class, 'index'])->name('auth.login');
-// Route::post('/VCare/login', [LoginController::class, 'login'])->name('post.auth.login');
 // register
 Route::get('/VCare/register', [RegisterController::class, 'index'])->name('auth.register');
-// Route::post('/VCare/register', [LoginController::class, 'register'])->name('post.auth.register');
+Route::post('/VCare/register', [RegisterController::class, 'create'])->name('auth.register_data');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// login
+Route::get('/VCare/login', [LoginController::class, 'index'])->name('auth.login');
+// Route::post('/VCare/login', [LoginController::class, 'login'])->name('auth.login_data');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('front.index');

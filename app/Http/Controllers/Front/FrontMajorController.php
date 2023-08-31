@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
 use App\Models\Major;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FrontMajorController extends Controller
 {

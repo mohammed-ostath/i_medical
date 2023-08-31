@@ -27,6 +27,6 @@ class HomeController extends Controller
     {
         $majors = Major::all();
         $doctors = Doctor::all();
-        return view('front.index', compact('majors', 'doctors'));
+        return view('home', compact('majors', 'doctors'));
     }
 }

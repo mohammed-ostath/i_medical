@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-
-use App\Models\Doctor;
 use App\Models\Major;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -56,28 +55,28 @@ class DoctorController extends Controller
     }
 
     public function update(Request $request, Doctor $doctor)
-{
-    $validatedData = $request->validate([
-        'name' => 'required|max:100',
-        'title' => 'required|max:250',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:4048',
-        'major_id' => 'required|exists:majors,id',
-    ]);
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:100',
+            'title' => 'required|max:250',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:4048',
+            'major_id' => 'required|exists:majors,id',
+        ]);
 
-    // The $doctor parameter already holds the Doctor instance based on the route model binding
+        // The $doctor parameter already holds the Doctor instance based on the route model binding
 
-    if ($request->hasFile('image') && $request->file('image')->isValid()) {
-        $imagePath = 'doctors_images/' . time() . '_' . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('doctors_images'), $imagePath);
-        $doctor->image = $imagePath;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imagePath = 'doctors_images/' . time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('doctors_images'), $imagePath);
+            $doctor->image = $imagePath;
+        }
+        $doctor->name = $request->input('name');
+        $doctor->title = $request->input('title');
+        $doctor->major_id = $request->input('major_id');
+        $doctor->save();
+
+        return redirect()->route('doctors.index')->with('success', 'Doctor Updated successfully.');
     }
-    $doctor->name = $request->input('name');
-    $doctor->title = $request->input('title');
-    $doctor->major_id = $request->input('major_id');
-    $doctor->save();
-
-    return redirect()->route('doctors.index')->with('success', 'Doctor Updated successfully.');
-}
 
 
 

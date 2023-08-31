@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
 use App\Models\Doctor;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FrontDoctorController extends Controller
 {

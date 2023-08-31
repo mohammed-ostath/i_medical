@@ -42,7 +42,8 @@
                             href="{{ route('front.majors.index') }}">majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('front.doctors.index') }}">Doctors</a>
-                        <a type="button" class="btn btn-outline-light navigation--button" href="{{route('auth.login')}}">login</a>
+                        <a type="button" class="btn btn-outline-light navigation--button"
+                            href="{{ route('auth.login') }}">login</a>
                     </div>
                 </div>
             </div>
@@ -56,14 +57,11 @@
                     </div>
                     <div class="col-sm order-sm-1">
                         <h1 class="h1">Have a Medical Question?</h1>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa nesciunt repellendus itaque,
-                            laborum
-                            saepe
-                            enim maxime, delectus, dicta cumque error cupiditate nobis officia quam perferendis
-                            consequatur
-                            cum
-                            iure
-                            quod facere.</p>
+                        <p>hank you for reaching out with your medical question ,, That being said, if you have a
+                            medical concern, it's a good idea to provide as much detail as possible about your symptoms,
+                            medical history, and any other relevant information. This will help any medical
+                            professionals or experts who may respond to better understand your situation and provide
+                            more informed guidance..</p>
                     </div>
                 </div>
             </div>
@@ -207,12 +205,12 @@
             <div class="col-sm order-sm-2">
                 <h1 class="h1">Links</h1>
                 <div class="links d-flex gap-2 flex-wrap">
-                    <a href="{{route('front.index')}}" class="link text-white">Home</a>
-                    <a href="{{route('front.majors.index')}}" class="link text-white">Majors</a>
-                    <a href="{{route('front.doctors.index')}}" class="link text-white">Doctors</a>
-                    <a href="{{route('auth.login')}}" class="link text-white">Login</a>
-                    <a href="{{route('auth.register')}}" class="link text-white">Register</a>
-                    <a href="{{route('front.index')}}" class="link text-white">Contact</a>
+                    <a href="{{ route('front.index') }}" class="link text-white">Home</a>
+                    <a href="{{ route('front.majors.index') }}" class="link text-white">Majors</a>
+                    <a href="{{ route('front.doctors.index') }}" class="link text-white">Doctors</a>
+                    <a href="{{ route('auth.login') }}" class="link text-white">Login</a>
+                    <a href="{{ route('auth.register') }}" class="link text-white">Register</a>
+                    <a href="{{ route('front.index') }}" class="link text-white">Contact</a>
                 </div>
             </div>
         </div>

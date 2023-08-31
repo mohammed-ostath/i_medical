@@ -75,7 +75,7 @@
                             alt="major">
                         <div class="card-body d-flex flex-column gap-1 justify-content-center">
                             <h4 class="card-title fw-bold text-center">{{ $major->title }}</h4>
-                            <a href="{{ route('doctors.index') }}" class="btn btn-outline-primary card-button">Browse
+                            <a href="{{ route('front.doctors.index') }}" class="btn btn-outline-primary card-button">Browse
                                 Doctors</a>
                         </div>
                     </div>

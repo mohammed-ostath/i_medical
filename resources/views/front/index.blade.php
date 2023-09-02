@@ -42,8 +42,13 @@
                             href="{{ route('front.majors.index') }}">majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('front.doctors.index') }}">Doctors</a>
+                        {{-- @if (auth()->user()) --}}
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('auth.login') }}">login</a>
+                        <a type="button" class="btn btn-outline-light navigation--button"
+                            href="{{ route('auth.register') }}">Register</a>
+                        {{-- @endif --}}
+
                     </div>
                 </div>
             </div>
@@ -75,7 +80,8 @@
                             alt="major">
                         <div class="card-body d-flex flex-column gap-1 justify-content-center">
                             <h4 class="card-title fw-bold text-center">{{ $major->title }}</h4>
-                            <a href="{{ route('front.doctors.index') }}" class="btn btn-outline-primary card-button">Browse
+                            <a href="{{ route('front.doctors.index') }}"
+                                class="btn btn-outline-primary card-button">Browse
                                 Doctors</a>
                         </div>
                     </div>

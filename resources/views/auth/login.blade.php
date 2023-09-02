@@ -98,7 +98,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('frontassets/assets/styles/pages/main.css') }}">
 
-    <title>@yield('title', 'login')</title>
+    <title>@yield('title', 'Login')</title>
 </head>
 
 <body>
@@ -136,21 +136,34 @@
                     <li class="breadcrumb-item active" aria-current="page">login</li>
                 </ol>
             </nav>
-            <div class="d-flex flex-column gap-3 account-form  mx-auto mt-5">
-                {{-- <form class="form">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
 
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
+            <div class="d-flex flex-column gap-3 account-form  mx-auto mt-5">
+                <form class="form" action="{{ route('loginSub') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label class="form-label required-label" for="email">Email</label>
-                        <input type="email" class="form-control" id="email" required>
+                        <input type="email" class="form-control" name="email" id="email" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label required-label" for="password">password</label>
-                        <input type="password" class="form-control" id="password" required>
+                        <input type="password" class="form-control" name="password" id="password" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
-                </form> --}}
+                </form>
 
-                <form method="POST" action="{{ route('login') }}">
+                {{-- <form method="POST" action="{{ route('login') }}">
                     @csrf
 
                     <div class="row mb-3">
@@ -212,7 +225,7 @@
                             @endif
                         </div>
                     </div>
-                </form>
+                </form> --}}
                 <div class="d-flex justify-content-center gap-2 flex-column flex-lg-row flex-md-row flex-sm-column">
                     <span>don't have an account?</span><a class="link" href="{{ route('auth.register') }}">create
                         account</a>

@@ -147,7 +147,8 @@
                             href="{{ route('front.majors.index') }}">majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('front.doctors.index') }}">Doctors</a>
-                        <a type="button" class="btn btn-outline-light navigation--button" href="./login.html">login</a>
+                        <a type="button" class="btn btn-outline-light navigation--button"
+                            href="{{ route('auth.login') }}">login</a>
                     </div>
                 </div>
             </div>
@@ -161,11 +162,24 @@
                     <li class="breadcrumb-item active" aria-current="page">Register</li>
                 </ol>
             </nav>
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
+
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
             <div class="d-flex flex-column gap-3 account-form mx-auto mt-5">
-                <form class="form" method="POST" action="{{ route('register') }}">
+                <form class="form" method="POST" action="{{ route('registerSub') }}">
                     @csrf
                     <div class="form-items">
-                        {{-- <div class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label required-label" for="name">{{ __('Name') }}</label>
                             <input type="text" class="form-control" name="name" id="name" required>
                         </div>
@@ -180,9 +194,9 @@
                         <div class="mb-3">
                             <label class="form-label required-label" for="password">{{ __('Password') }}</label>
                             <input type="password" class="form-control" name="password" id="password" required>
-                        </div> --}}
+                        </div>
 
-                        <div class="row mb-3">
+                        {{-- <div class="row mb-3">
                             <label for="name"
                                 class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
@@ -244,8 +258,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="row mb-3">
                             <label for="password-confirm"
                                 class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
@@ -262,11 +274,11 @@
                                     {{ __('Register') }}
                                 </button>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                     </div>
-                    {{-- <button type="submit" class="btn btn-primary">Create account</button> --}}
+                    <button type="submit" class="btn btn-primary">Create account</button>
                 </form>
                 <div class="d-flex justify-content-center gap-2">
                     <span>already have an account?</span><a class="link" href="{{ route('auth.login') }}">

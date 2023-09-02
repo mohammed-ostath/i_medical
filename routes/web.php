@@ -14,9 +14,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Front\FrontMajorController;
 use App\Http\Controllers\Front\FrontDoctorController;
 use App\Http\Controllers\Auth\LoginController;
-
-
-
+use App\Http\Controllers\Front\AuthController;
 
 // Dashboard Routes
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware(['auth', 'isAdmin']);
@@ -54,11 +52,11 @@ Route::get('/doctors', [FrontDoctorController::class, 'index'])->name('front.doc
 
 Auth::routes();
 // // register
-Route::get('/VCare/register', [RegisterController::class, 'index'])->name('auth.register');
-Route::post('/VCare/register', [RegisterController::class, 'create'])->name('auth.register_data');
+Route::get('/VCare/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('/VCare/register', [AuthController::class, 'registerSub'])->name('registerSub');
 
 // login
-Route::get('/VCare/login', [LoginController::class, 'index'])->name('auth.login');
-Route::post('/VCare/login', [LoginController::class, 'login'])->name('auth.login_data');
+Route::get('/VCare/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/VCare/login', [AuthController::class, 'loginSub'])->name('loginSub');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -32,11 +32,16 @@ Route::delete('api-majors/{major}', [MajorController::class, 'destroy']);
 Route::get('api-doctors', [DoctorController::class, 'index']);
 Route::get('api-doctors/{id}', [DoctorController::class, 'show']);
 Route::post('api-doctors', [DoctorController::class,'store']);
-Route::put('api-doctors/{doctor}', [DoctorController::class, 'update']);
+Route::post('api-doctors/{doctor}', [DoctorController::class, 'update']);
 Route::delete('api-doctors/{doctor}', [DoctorController::class, 'destroy']);
 // Route Api Bookings
 Route::get('api-bookings', [BookingController::class, 'index']);
 Route::get('api-bookings/{id}', [BookingController::class, 'show']);
+Route::post('api-bookings', [BookingController::class,'store']);
+Route::put('api-bookings/{booking}', [BookingController::class, 'update']);
+Route::delete('api-bookings/{booking}', [BookingController::class, 'destroy']);
 // Route Authorization
 Route::post('api/register', [RegisterController::class, 'register']);
 Route::post('api/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
+

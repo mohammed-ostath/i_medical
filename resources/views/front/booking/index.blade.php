@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
@@ -13,13 +13,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css"
         integrity="sha512-Z/def5z5u2aR89OuzYcxmDJ0Bnd5V1cKqBEbvLOiUNWdg9PQeXVvXLI90SE4QOHGlfLqUnDNVAYyZi8UwUTmWQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.rtl.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.rtl.min.css"
         integrity="sha512-wO8UDakauoJxzvyadv1Fm/9x/9nsaNyoTmtsv7vt3/xGsug25X7fCUWEyBh1kop5fLjlcrK3GMVg8V+unYmrVA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
-
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('frontassets/assets/styles/pages/main.css') }}">
 
-    <title>@yield('title', 'Majors')</title>
+    <title>@yield('title', $doctor->name)</title>
 </head>
 
 <body>
@@ -39,15 +38,15 @@
                     <div class="d-flex gap-3 flex-wrap justify-content-center" role="group">
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('front.index') }}">Home</a>
-                        <a type="button" class="btn btn-outline-light navigation--button active"
-                            href="{{ route('front.majors.index') }}">Majors</a>
+                        <a type="button" class="btn btn-outline-light navigation--button"
+                            href="{{ route('front.majors.index') }}">majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('front.doctors.index') }}">Doctors</a>
-                            @guest
+                        @guest
                             <a type="button" class="btn btn-outline-light navigation--button"
                                 href="{{ route('auth.login') }}">login</a>
-                            {{-- <a type="button" class="btn btn-outline-light navigation--button"
-                                href="{{ route('auth.register') }}">Register</a> --}}
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.register') }}">Register</a>
                         @endguest
                         @auth
                             <a type="button" class="btn btn-outline-light navigation--button"
@@ -60,60 +59,68 @@
         <div class="container">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fw-bold my-4 h4">
                 <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="./index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Majors</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none"
+                            href="{{ route('front.index') }}">Home</a></li>
+                    <li class="breadcrumb-item">><a class="text-decoration-none"
+                            href="{{ route('front.doctors.index') }}">doctors</a>
+                    </li>
+                    <li class="item active" aria-current="page">{{ $doctor->name }}</li>
                 </ol>
             </nav>
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
 
-            <div class="majors-grid">
-                @foreach ($majors as $major)
-                    <div class="card p-2" style="width: 18rem;">
-                        <img src="{{ asset($major->image) }}" class="card-img-top rounded-circle card-image-circle"
-                            alt="major">
-                        <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                            <h4 class="card-title fw-bold text-center">{{ $major->title }}</h4>
-                            <a href="{{ route('front.doctors.index') }}" class="btn btn-outline-primary card-button">Browse
-                                Doctors</a>
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
+            <div class="d-flex flex-column gap-3 details-card doctor-details">
+                <div class="details d-flex gap-2 align-items-center">
+                    <img src="{{ asset('frontassets/assets/images/major.jpg') }}" alt="doctor"
+                        class="img-fluid rounded-circle" height="150" width="150">
+                    <div class="details-info d-flex flex-column gap-3 ">
+                        <h4 class="card-title fw-bold">{{ $doctor->name }}</h4>
+                        <div class="d-flex gap-3 align-bottom">
+                            <ul class="rating">
+                                <li class="star"></li>
+                                <li class="star"></li>
+                                <li class="star"></li>
+                                <li class="star"></li>
+                                <li class="star"></li>
+                            </ul>
+                            <a href="#" class="align-baseline">submit rating</a>
+                        </div>
+                        <h6 class="card-title fw-bold">doctor major and more info about the doctor in summary</h6>
+                    </div>
+                </div>
+                <hr />
+
+
+                <form class="form" method="POST" action="{{ route('front.store') }}">
+                    @csrf
+                    <input type="hidden" name="doctor_id" value="{{ $doctor->id }}">
+                    <div class="form-items">
+                        <div class="mb-3">
+                            <label class="form-label required-label" for="name">Name</label>
+                            <input type="text" class="form-control" name="name" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required-label" for="phone">Phone</label>
+                            <input type="text" class="form-control" name="phone" id="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required-label" for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" required>
                         </div>
                     </div>
-                @endforeach
+                    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                </form>
+
             </div>
-
-            {{-- <div class="majors-grid">
-                <div class="card p-2" style="width: 18rem;">
-                    @foreach ($majors as $major)
-                        <img src="{{ asset($major->image) }}" class="card-img-top rounded-circle card-image-circle"
-                            alt="major">
-                        <img src="{{ asset('frontassets/assets/images/major.jpg') }}"
-                            class="card-img-top rounded-circle card-image-circle" alt="major">
-                        <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                            <h4 class="card-title fw-bold text-center">{{ $major->title }}</h4>
-                            <a href="{{route('front')}}" class="btn btn-outline-primary card-button">Browse
-                                Doctors</a>
-                        </div>
-                    @endforeach
-
-                </div>
-            </div> --}}
-
-            <nav class="mt-5" aria-label="navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link page-prev" href="#" aria-label="Previous">
-                            <span aria-hidden="true">
-                                < </span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link page-next" href="#" aria-label="Next">
-                            <span aria-hidden="true"> > </span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
     <footer class="container-fluid bg-blue text-white py-3">
@@ -142,6 +149,26 @@
             </div>
         </div>
     </footer>
+    <script>
+        const stars = document.querySelectorAll('.star');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                const isActive = star.classList.contains('active');
+                if (isActive) {
+                    star.classList.remove('active');
+                } else {
+                    star.classList.add('active');
+                }
+                for (let i = 0; i < index; i++) {
+                    stars[i].classList.add('active');
+                }
+                for (let i = index + 1; i < stars.length; i++) {
+                    stars[i].classList.remove('active');
+                }
+            });
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"
         integrity="sha512-fHY2UiQlipUq0dEabSM4s+phmn+bcxSYzXP4vAXItBvBHU7zAM/mkhCZjtBEIJexhOMzZbgFlPLuErlJF2b+0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

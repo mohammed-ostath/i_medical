@@ -122,8 +122,16 @@
                             href="{{ route('front.majors.index') }}">majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('front.doctors.index') }}">Doctors</a>
-                        <a type="button" class="btn btn-outline-light navigation--button"
-                            href="{{ route('auth.login') }}">login</a>
+                            @guest
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.login') }}">login</a>
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.register') }}">Register</a>
+                        @endguest
+                        @auth
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.logout') }}">Logout</a>
+                        @endauth
                     </div>
                 </div>
             </div>

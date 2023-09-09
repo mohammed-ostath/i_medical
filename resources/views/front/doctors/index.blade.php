@@ -40,8 +40,16 @@
                             href="{{ route('front.majors.index') }}">majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button active"
                             href="{{ route('front.doctors.index') }}">Doctors</a>
-                        <a type="button" class="btn btn-outline-light navigation--button"
-                            href="../login.html">login</a>
+                        @guest
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.login') }}">login</a>
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.register') }}">Register</a>
+                        @endguest
+                        @auth
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.logout') }}">Logout</a>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -49,7 +57,8 @@
         <div class="container">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fw-bold my-4 h4">
                 <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('front.index') }}">Home></a>
+                    <li class="breadcrumb-item"><a class="text-decoration-none"
+                            href="{{ route('front.index') }}">Home></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">Doctors</li>
                 </ol>
@@ -187,14 +196,15 @@
                             alt="major">
                         <div class="card-body d-flex flex-column gap-1 justify-content-center">
                             <h4 class="card-title fw-bold text-center">{{ $doctor->name }}</h4>
-                            <h6 class="card-title fw-bold text-center">{{ $doctor->title }}</h6>
-                            <a href="./doctor.html" doctor.html" class="btn btn-outline-primary card-button">Book an
+                            <h6 class="card-title fw-bold text-center">{{ $doctor->major->title }}</h6>
+                            <a href="{{ route('front.booking', ['doctor' => $doctor->id]) }}"
+                                class="btn btn-outline-primary card-button">Book an
                                 appointment</a>
                         </div>
 
                     </div>
                 @endforeach
-
+                {!! $doctors->links() !!}
             </div>
             <nav class="mt-5" aria-label="navigation">
                 <ul class="pagination justify-content-center">
@@ -232,12 +242,12 @@
             <div class="col-sm order-sm-2">
                 <h1 class="h1">Links</h1>
                 <div class="links d-flex gap-2 flex-wrap">
-                    <a href="{{route('front.index')}}" class="link text-white">Home</a>
-                    <a href="{{route('front.majors.index')}}" class="link text-white">Majors</a>
-                    <a href="{{route('front.doctors.index')}}" class="link text-white">Doctors</a>
-                    <a href="{{route('auth.login')}}" class="link text-white">Login</a>
-                    <a href="{{route('auth.register')}}" class="link text-white">Register</a>
-                    <a href="{{route('front.index')}}" class="link text-white">Contact</a>
+                    <a href="{{ route('front.index') }}" class="link text-white">Home</a>
+                    <a href="{{ route('front.majors.index') }}" class="link text-white">Majors</a>
+                    <a href="{{ route('front.doctors.index') }}" class="link text-white">Doctors</a>
+                    <a href="{{ route('auth.login') }}" class="link text-white">Login</a>
+                    <a href="{{ route('auth.register') }}" class="link text-white">Register</a>
+                    <a href="{{ route('front.index') }}" class="link text-white">Contact</a>
                 </div>
             </div>
         </div>

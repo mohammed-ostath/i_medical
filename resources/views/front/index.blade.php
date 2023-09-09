@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css"
         integrity="sha512-Z/def5z5u2aR89OuzYcxmDJ0Bnd5V1cKqBEbvLOiUNWdg9PQeXVvXLI90SE4QOHGlfLqUnDNVAYyZi8UwUTmWQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/a    jax/libs/bootstrap/5.3.1/css/bootstrap.rtl.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/a    jax/libs/bootstrap/5.3.1/css/bootstrap.rtl.min.css"
         integrity="sha512-wO8UDakauoJxzvyadv1Fm/9x/9nsaNyoTmtsv7vt3/xGsug25X7fCUWEyBh1kop5fLjlcrK3GMVg8V+unYmrVA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('frontassets/assets/styles/pages/main.css') }}">
 
     <title>@yield('title', 'VCare')</title>
@@ -42,12 +42,18 @@
                             href="{{ route('front.majors.index') }}">majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{ route('front.doctors.index') }}">Doctors</a>
-                        {{-- @if (auth()->user()) --}}
-                        <a type="button" class="btn btn-outline-light navigation--button"
-                            href="{{ route('auth.login') }}">login</a>
-                        <a type="button" class="btn btn-outline-light navigation--button"
-                            href="{{ route('auth.register') }}">Register</a>
-                        {{-- @endif --}}
+                        @guest
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.login') }}">login</a>
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.register') }}">Register</a>
+                        @endguest
+                        @auth
+                            <a type="button" class="btn btn-outline-light navigation--button"
+                                href="{{ route('auth.logout') }}">Logout</a>
+                        @endauth
+
+
 
                     </div>
                 </div>

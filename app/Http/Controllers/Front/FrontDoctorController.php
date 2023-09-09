@@ -10,7 +10,7 @@ class FrontDoctorController extends Controller
 {
     public function index()
     {
-        $doctors = Doctor::all();
+        $doctors = Doctor::with('major')->paginate(5);
         return view('front.doctors.index', compact('doctors'));
     }
 }

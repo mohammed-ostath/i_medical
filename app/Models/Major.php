@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Major extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','image'];
+    protected $fillable = ['title', 'image'];
+
+    public function doctor()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }

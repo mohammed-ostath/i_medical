@@ -11,8 +11,8 @@ class DoctorController extends Controller
 {
     public function index()
     {
-        $majors = Major::all();
-        $doctors = Doctor::all();
+        $majors = Major::orderBy('id', 'desc')->get();
+        $doctors = Doctor::orderBy('id', 'desc')->get();
         return view('admin.doctors.index', compact('doctors', 'majors'));
     }
 
@@ -82,6 +82,10 @@ class DoctorController extends Controller
 
     public function destroy(Doctor $doctor)
     {
+        $imagePath = public_path('doctors_images') . $doctor->image;
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
         $doctor->delete();
         return redirect()->route('doctors.index')->with('success', 'Doctor deleted successfully');
     }

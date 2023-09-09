@@ -14,13 +14,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
+        // \App\Models\Doctor::factory(20)->create();
 
-        \App\Models\User::create([
-            'name' => 'mohammed',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('123456'),
-            'phone' => '0569300640',
-            'role' => 'admin',
+        // \App\Models\User::create([
+        //     'name' => 'mohammed',
+        //     'email' => 'admin@admin.com',
+        //     'password' => Hash::make('123456'),
+        //     'phone' => '0569300640',
+        //     'role' => 'admin',
+        // ]);
+
+        $this->call([
+            // MajorSeeder::class,
+            // DoctorSeeder::class,
         ]);
     }
 }

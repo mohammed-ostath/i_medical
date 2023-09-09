@@ -36,8 +36,7 @@
                         <td>{{ $doctor->title }}</td>
                         <td>{{ $doctor->major_id ?? 'No Major' }}</td>
                         <td>
-                            <img src="{{ asset($doctor->image) }}" alt="{{ $doctor->name }}"
-                                width="100">
+                            <img src="{{ asset($doctor->image) }}" alt="{{ $doctor->name }}" width="100">
                         </td>
                         <td>
                             <a href="{{ route('doctors.edit', $doctor->id) }}" class="btn btn-sm btn-primary">Edit</a>
@@ -58,6 +57,8 @@
                 @endforelse
             </tbody>
         </table>
+
+        {{ $doctors->links() }}
     </div>
 
     @section('script')

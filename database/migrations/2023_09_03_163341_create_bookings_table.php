@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('email')->unique();
-            $table->string('password');
             $table->string('phone')->unique();
-            $table->enum('role', ['admin', 'user'])->default('user');
-            $table->rememberToken();
+            $table->enum('status', [0, 1])->default(0);
+            $table->foreignId('doctor_id')->constrained('doctors')->OnDelete('cascade');
+            $table->timestamp('booking_date');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('bookings');
     }
 };

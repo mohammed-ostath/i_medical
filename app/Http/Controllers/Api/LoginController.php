@@ -27,6 +27,6 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-        return $this->apiResponse('200', 'Logged out successfully', null, null);
+        return response()->json(['message' => 'Logout successful'], 200);
     }
 }

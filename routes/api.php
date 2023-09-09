@@ -43,5 +43,5 @@ Route::delete('api-bookings/{booking}', [BookingController::class, 'destroy']);
 // Route Authorization
 Route::post('api/register', [RegisterController::class, 'register']);
 Route::post('api/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('api/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
 
